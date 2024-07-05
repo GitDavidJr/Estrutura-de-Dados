@@ -5,9 +5,9 @@
 package View;
 
 import Controller.ControllerMenu;
+import org.jetbrains.annotations.Nullable;
 
-import javax.swing.JList;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  *
@@ -97,14 +97,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel5.setText("Sorteio");
 
         listaNumerosSorteados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "", "", "", "", "" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(listaNumerosSorteados);
 
         listaCartelas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "", "", "", "", "" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -200,6 +200,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void sortearNumeroBActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        this.controller.sortear();
     }
 
     private void ExcluirCartelaBActionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,6 +292,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
 
+    public void exibirGanhador(@Nullable String jogador) {
+        JOptionPane.showMessageDialog(null, ("BINGOOOO: " + jogador));
+    }
 }
 
 

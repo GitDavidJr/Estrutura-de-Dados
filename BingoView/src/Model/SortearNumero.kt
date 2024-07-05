@@ -10,7 +10,7 @@ class SortearNumero {
         var numeroAleatorio: Int
 
         do {
-            numeroAleatorio = Random.nextInt(1,100)
+            numeroAleatorio = Random.nextInt(1,76)
         } while (jaFoiSorteado(numeroAleatorio))
 
         numero = numeroAleatorio
@@ -34,6 +34,10 @@ class SortearNumero {
     public fun getNumerosSorteados(): Array<Int> {
         val numerosValidos = numerosSorteados.selecionarTodos().filterNotNull().toTypedArray()
         return numerosValidos
+    }
+
+    public fun getQuantidade(): Int{
+        return numerosSorteados.getQuantidade()
     }
 
 

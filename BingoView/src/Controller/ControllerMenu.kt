@@ -1,6 +1,7 @@
 package Controller
 
 import Cartela
+import Controller.Helper.HelperCartela
 import Controller.Helper.HelperMenuPrincipal
 import Lista
 import Model.Bingo
@@ -8,50 +9,69 @@ import SortearNumero
 import View.CartelaView
 import View.MenuPrincipal
 import javax.swing.DefaultListModel
-import javax.swing.JList
-import javax.swing.ListModel
-import javax.swing.text.StyledEditorKit.BoldAction
 
 class ControllerMenu(private val view: MenuPrincipal) {
 
+    //helper
     private val helper: HelperMenuPrincipal = HelperMenuPrincipal(view)
-    private var quantidadeCartelas: Int = 0
-    private var bingoA = Bingo()
+    private var helperCartela: MutableList<HelperCartela> = mutableListOf()
+
+    //models
+    private var bingo = Bingo()
     private var sorteio: SortearNumero = SortearNumero()
+
+    //variaveis de controle
     private var start = false
-    private var nomes: Array<String?> = arrayOfNulls(20)
+    private var vencedoresQnt = 0
+
+    //Cartela View
+    private var cartelaView: MutableList<CartelaView> = mutableListOf()
 
     fun incluirCartela() {
 
         if (!start) {
-            var cartelaView: CartelaView = CartelaView()
-            var cartela: Cartela = Cartela(helper.getNome())
 
+            cartelaView.add(CartelaView())
+            helperCartela.add(HelperCartela(cartelaView[cartelaView.size - 1]))
+
+            var cartela: Cartela = Cartela(helper.getNome())
             cartela.gerarNumerosDaCartela()
 
-            bingoA.incluirCartela(cartela)
+            bingo.incluirCartela(cartela)
 
-            nomes[quantidadeCartelas] = helper.getNome()
             view.listaCartelas.model = DefaultListModel<String>().apply {
-                nomes.forEach { addElement(it) }
 
-                val controllerCartela: ControllerCartela = ControllerCartela(cartelaView)
+                bingo.getJogadores().forEach { addElement(it) }
+
+                val controllerCartela: ControllerCartela = ControllerCartela(cartelaView[cartelaView.size - 1])
                 controllerCartela.novaCartela(helper.getNome(), cartela)
-                cartelaView.setVisible(true)
+                cartelaView[cartelaView.size - 1].isVisible = true
 
                 helper.cleanNome()
-                quantidadeCartelas = quantidadeCartelas.inc()
             }
         }
     }
 
-    public fun sortear() {
-        bingoA.sortear(sorteio)
-        //adicionar numero na lista
-        view.listaCartelas.model = DefaultListModel<String>().apply {
-            sorteio.getNumerosSorteados().forEach { addElement(it.toString()) }
+    fun sortear() {
 
+        if(!start) start = true
+
+        bingo.sortear(sorteio)
+
+        //adicionar numero na lista
+        view.listaNumerosSorteados.model = DefaultListModel<String>().apply {
+            sorteio.getNumerosSorteados().forEach { addElement(it.toString()) }
         }
+
+        for(i in 0 ..<cartelaView.size){
+            helperCartela[i].setCor(sorteio)
+        }
+
+        for(i in vencedoresQnt..<bingo.getVencedores().size){
+            view.exibirGanhador(bingo.getVencedores()[i]?.getJogador())
+            vencedoresQnt++
+        }
+
     }
 }
 

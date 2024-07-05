@@ -1,10 +1,14 @@
-class Lista<Integer>(var tamanho: Int = 99) {
+class Lista<Integer>(var tamanho: Int = 75) {
     private var ponteiroInicio = 0
     private var ponteiroFim = -1
     private var quantidade = 0
     private var dados: Array<Int?> = arrayOfNulls(tamanho)
     private var cartelasJogo: Array<Cartela?> = arrayOfNulls(tamanho)
     //private var numerosSorteados: Array<Int?> = arrayOfNulls(tamanho)
+
+    fun getQuantidade(): Int{
+        return quantidade
+    }
 
     fun isEmpty(): Boolean {
         return (quantidade == 0)

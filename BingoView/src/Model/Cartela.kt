@@ -18,7 +18,7 @@ data class Cartela(var nome: String) {
     public fun gerarNumerosDaCartela(): Array<Int?> {
         for (indice in 0..24){
             do {
-                var rnd = Random.nextInt(1, 100)
+                var rnd = Random.nextInt(1, 76)
                 numerosDaCartela[indice] = rnd
                 qtd++
                 if (repetido(rnd)) {

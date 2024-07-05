@@ -44,7 +44,7 @@ fun main(args: Array<String>) {
     bingoA.incluirCartela(c11)
     bingoA.incluirCartela(c12)
 
-    bingoA.consultarJogadores()
+    bingoA.getJogadores()
 
     bingoA.sortear(sorteio)
 
