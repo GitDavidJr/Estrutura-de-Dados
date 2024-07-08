@@ -1,4 +1,3 @@
-import Model.Bingo
 
 
 fun main(args: Array<String>) {
@@ -29,7 +28,7 @@ fun main(args: Array<String>) {
     c11.gerarNumerosDaCartela()
     c12.gerarNumerosDaCartela()
 
-    var bingoA = Bingo()
+    var bingoA = Bingo(12)
     var sorteio = SortearNumero()
     bingoA.incluirCartela(c1)
     bingoA.incluirCartela(c2)
@@ -50,10 +49,6 @@ fun main(args: Array<String>) {
 
 
 
-
-    bingoA.consultarNumOrdemCrescente(sorteio)
-    bingoA.consultarQtdNumSorteados()
-    bingoA.verificarVencedores()
 
     print("Numeros sorteados: ")
     println(sorteio.getNumerosSorteados().contentToString())

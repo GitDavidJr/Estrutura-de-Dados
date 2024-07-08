@@ -67,8 +67,9 @@ class ControllerMenu(private val view: MenuPrincipal) {
             helperCartela[i].setCor(sorteio)
         }
 
+        var listaVencedores = bingo.getVencedores().toList()
         for(i in vencedoresQnt..<bingo.getVencedores().size){
-            view.exibirGanhador(bingo.getVencedores()[i]?.getJogador())
+            view.exibirGanhador(listaVencedores[i]?.getJogador())
             vencedoresQnt++
         }
 
