@@ -4,7 +4,7 @@ import Cartela
 import Controller.Helper.HelperCartela
 import View.CartelaView
 
-class ControllerCartela(private val view: CartelaView) {
+class ControllerCartela(private val view: CartelaView?) {
 
     private val helper: HelperCartela = HelperCartela(view)
 

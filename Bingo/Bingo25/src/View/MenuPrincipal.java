@@ -205,6 +205,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void ExcluirCartelaBActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        this.controller.excluir();
     }
 
     private void campoNomeCartelaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,6 +295,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     public void exibirGanhador(@Nullable String jogador) {
         JOptionPane.showMessageDialog(null, ("BINGOOOO: " + jogador));
+    }
+
+    public void exibirMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 }
 

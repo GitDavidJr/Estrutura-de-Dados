@@ -1,6 +1,7 @@
 data class Bingo (val tamanho: Int = 10){
 
-    private var vencedores = linkedSetOf<Cartela?>()
+    private var vencedores: Array<Cartela?> = arrayOfNulls(tamanho)
+    private var quantidadesVencedores = 0
     private var cartelas:  Lista<Cartela> = Lista()
     private var cartelasJogo: Array<Cartela?> = arrayOfNulls(tamanho)
     private var ponteiroInicio = 0
@@ -8,7 +9,10 @@ data class Bingo (val tamanho: Int = 10){
     private var quantidade = 0
 
     //Recebe uma cartela e verifica se ela é igual a alguma outra cartela do array, caso seja diferente, insere a cartela no final do array e retorna true, caso contrario retorna false
-    fun incluirCartela(cartela: Cartela){
+    fun incluirCartela(cartela: Cartela): Boolean{
+
+        var result = false
+
         for (i in 0 until cartelasJogo.size-1){
             if(cartelasJogo[i]?.component1().equals(cartela.component1(), ignoreCase = true)){
                 println("Ja existe essa cartela")
@@ -19,12 +23,15 @@ data class Bingo (val tamanho: Int = 10){
                     cartelasJogo[ponteiroFim] = cartela
                     quantidade++
                     println("Cartela adicionada com sucesso!")
+                    result = true
                     break
                 } else {
                     println("O bingo já está cheio!")
                 }
             }
         }
+
+        return result
     }
 
 
@@ -43,9 +50,11 @@ data class Bingo (val tamanho: Int = 10){
     }
 
     //Recebe o nome do jogador e localiza sua cartela, caso consiga localizar a cartela, ela é excluida.
-    fun excluirCartela (jogador: String ){
+    fun excluirCartela (jogador: String ): Cartela? {
+        var cartelaExcluida: Cartela? = null
         for ( i in 0 until cartelasJogo.size-1){
             if(cartelasJogo[i]?.getJogador().equals(jogador, ignoreCase = true)){
+                cartelaExcluida = cartelasJogo[i]!!
                 var posicao = i
                 if (!isEmpty()) {
                     if (posicao >= 0 && posicao < quantidade) {
@@ -74,6 +83,7 @@ data class Bingo (val tamanho: Int = 10){
             } else
                 println("Cartela não encontrada :/")
         }
+        return cartelaExcluida
     }
 
     //Cria um array de String com os nomes dos jogadores que possuem o numero sorteado na cartela
@@ -87,12 +97,16 @@ data class Bingo (val tamanho: Int = 10){
         }
     }
 
-    fun verificarVencedores (): LinkedHashSet<Cartela?> {
+    fun verificarVencedores (): Array<Cartela?> {
 
-        for(i in 0 until quantidade){
-            if (cartelasJogo[i]?.pontos == 25){
+        for (i in 0 until quantidade) {
+            if (cartelasJogo[i]?.pontos == 25) {
                 println("Vencedores até o momento: " + cartelasJogo[i]?.nome)
-            vencedores.add(cartelasJogo[i])
+
+                    if(cartelasJogo[i] !in vencedores){
+                        vencedores[quantidadesVencedores] = (cartelasJogo[i])
+                        quantidadesVencedores++
+                }
             }
         }
 
@@ -185,17 +199,28 @@ data class Bingo (val tamanho: Int = 10){
         }
     }
 
-    fun getJogadores(): MutableList<String?> {
+    fun getJogadores(): Array<String?> {
 
-        var nomes: MutableList<String?> = mutableListOf()
+        var nomes: Array<String?> = arrayOfNulls(tamanho)
 
         for(i in 0..<quantidade){
-            nomes.add(cartelasJogo[i]?.nome)
+            nomes[i] = (cartelasJogo[i]?.nome)
         }
         return nomes
     }
 
-    fun getVencedores(): LinkedHashSet<Cartela?> {
+    fun getVencedores(): Array<Cartela?> {
         return vencedores
+    }
+
+    fun reinicarBingo(){
+        cartelasJogo = arrayOfNulls(tamanho)
+        quantidade = 0
+        vencedores = arrayOfNulls(tamanho)
+        quantidade = 0
+    }
+
+    fun getQuantidadeVencedores(): Int{
+        return quantidadesVencedores
     }
 }

@@ -1,4 +1,4 @@
-class Lista<Integer>(var tamanho: Int = 75) {
+class Lista<Integer>(var tamanho: Int = 99) {
     private var ponteiroInicio = 0
     private var ponteiroFim = -1
     private var quantidade = 0

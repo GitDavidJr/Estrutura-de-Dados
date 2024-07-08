@@ -78,4 +78,8 @@ data class Cartela(var nome: String) {
             numerosDaCartela[i] = numerosImp[i]
         }
     }
+
+    public fun equalsC(cartela2: Cartela): Boolean {
+        return cartela2.nome.equals(this.nome, ignoreCase = true)
+    }
 }
