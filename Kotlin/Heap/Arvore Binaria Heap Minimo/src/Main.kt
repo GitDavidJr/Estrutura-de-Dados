@@ -1,3 +1,7 @@
 fun main() {
-    println("Hello World!")
+
+    var heapMin: HealMinimo = HealMinimo(10)
+
+
+
 }

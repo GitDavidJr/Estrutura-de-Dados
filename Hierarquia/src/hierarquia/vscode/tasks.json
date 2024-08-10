@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar e Executar Kotlin",
+            "type": "shell",
+            "command": "cd \"/home/luisa/luisa/IFBA/3° semestre/estrutura de dados/3 trabalho/hierarquia_ed/src/hierarquia/\" && kotlinc *.kt -include-runtime -d Main.jar && java -jar Main.jar",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$kotlinc"],
+            "detail": "Compila e executa o código Kotlin"
+        }
+    ]
+}
